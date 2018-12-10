@@ -2,6 +2,9 @@ const express = require('express')
 const handler = require('./handler.js')
 const app = express()
 
+// DB COnst
+const port = process.env.PORT || 8000
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + 'public'));
 // app.use(express.static(__dirname + '/styles'));
@@ -28,7 +31,7 @@ app.get('/portfolio', function(req, res){
             }
         });
     
-        let videos = realm.objects('Video').map(function(obj){
+        let videos = realm.objects('Video').filter('videoId = 51AA1AD1-035D-4C53-A8E0-BC85B02892A3).map(function(obj){
             return {
               videoId: obj.videoId,
               views: obj.views,
@@ -36,39 +39,26 @@ app.get('/portfolio', function(req, res){
               source: obj.source             
             }
           });
-        //   let url = window.URL.createObjectURL(videos[1].source.data);
-
-        console.log("URL ->", url);
-        
+          console.log('objects', videos);
         
         res.render('portfolio', {videos: videos})
         return videos
     };
-    let videos = getVideos()
-    // console.log(videos.count)
-    // let videos = ["1234", "12345"];
-    
+    let videos = getVideos();    
     
 });
 
-
-app.listen(3000, function(){
-    console.log('Transit Web App Running on port 3000');
+app.locals.videoHelper = function(videoData) {
+    console.log(videoData)
+}
+app.listen(port , function(){
+    console.log('Transit Web App Running on port' + port);
 });
 
 
 
 const auth_server = 'https://transitph-server-2.us1a.cloud.realm.io';
 const realm_server = 'realms://transitph-server-2.us1a.cloud.realm.io/transit2';
-
-const CarSchema = {
-    name: 'Car',
-    properties: {
-      make:  'string',
-      model: 'string',
-      miles: {type: 'int', default: 0},
-    }
-  };
 
   const CommentSchema = {
       name: 'Comment', 

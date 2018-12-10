@@ -71,7 +71,7 @@
                         
                     <h2 class="mdl-card__title-text">
                         <%= videos[i].videoId %>
-                        <video id="vid" controls style="max-width:600px;" onclick="playVideo()">
+                        <video id="vid" controls style="max-width:600px;" onclick = "playVideo()">
                             
                             </video>
                     </h2>
@@ -199,13 +199,13 @@
     </div>
   </body>
   <script >
-    function playVideo(videoStream){ // as blob 
-        console.log("clicked -> ", videoStream);
-        var video = document.getElementById("vid");
-       
-        var videoUrl = window.URL.createObjectURL(videoStream.data);// blob.data gives actual data
-       
-        video.src = videoUrl;
+    function playVideo(){ // as blob 
+        console.log("loggggg");
+        // var video = document.getElementById("vid");
+        // var blob = <%= videos[0].source %> 
+        // var videoUrl = window.URL.createObjectURL(blob);// blob.data gives actual data
+        // console.log(videoUrl);
+        // video.src = videoUrl;
        }
     </script>
 </html>
